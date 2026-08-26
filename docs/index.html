@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SaaS Doutor Agenda</title>
+<meta name="description" content="Plataforma SaaS de gestão para clínicas: médicos, pacientes, agendamentos, dashboard e assinaturas." />
+<style>
+  :root{
+    --bg:#f6f9fc; --bg2:#eef4fb; --card:#ffffff; --text:#0f172a; --muted:#64748b;
+    --brand:#0ea5a4; --brand2:#2563eb; --border:#e2e8f0; --chip:#eef2ff; --chip-text:#3730a3;
+    --shadow:0 10px 30px rgba(2,32,71,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0b1220; --bg2:#0e1626; --card:#111c2e; --text:#e7eefb; --muted:#93a4bd;
+      --brand:#2dd4bf; --brand2:#60a5fa; --border:#22304a; --chip:#1b2740; --chip-text:#bcd0ff;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text); background:linear-gradient(180deg,var(--bg),var(--bg2));
+    -webkit-font-smoothing:antialiased; line-height:1.6;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 20px}
+  header{padding:26px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .logo{display:flex; align-items:center; gap:12px; font-weight:800; font-size:1.15rem}
+  .logo .mark{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#fff; font-size:22px; box-shadow:var(--shadow)}
+  nav a{color:var(--muted); text-decoration:none; font-weight:600; font-size:.95rem; margin-left:18px}
+  nav a:hover{color:var(--text)}
+
+  .hero{text-align:center; padding:46px 0 30px}
+  .badge{display:inline-block; padding:6px 14px; border-radius:999px; background:var(--chip); color:var(--chip-text);
+    font-weight:700; font-size:.8rem; letter-spacing:.02em}
+  h1{font-size:clamp(2rem,5vw,3.3rem); line-height:1.1; margin:18px 0 12px; letter-spacing:-.02em}
+  h1 .grad{background:linear-gradient(120deg,var(--brand),var(--brand2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .sub{color:var(--muted); font-size:clamp(1rem,2.4vw,1.2rem); max-width:640px; margin:0 auto}
+  .cta{margin-top:26px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:12px; font-weight:700;
+    text-decoration:none; border:1px solid transparent; transition:transform .06s ease, box-shadow .2s}
+  .btn:active{transform:translateY(1px)}
+  .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#fff; box-shadow:var(--shadow)}
+  .btn.ghost{background:var(--card); color:var(--text); border-color:var(--border)}
+
+  section{padding:34px 0}
+  .section-title{font-size:1.5rem; margin:0 0 6px; text-align:center}
+  .section-sub{color:var(--muted); text-align:center; margin:0 0 26px}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow:var(--shadow)}
+  .card .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;margin-bottom:12px;
+    background:var(--chip)}
+  .card h3{margin:0 0 6px; font-size:1.08rem}
+  .card p{margin:0; color:var(--muted); font-size:.95rem}
+
+  .stack{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
+  .pill{background:var(--card); border:1px solid var(--border); color:var(--text); padding:8px 14px; border-radius:999px;
+    font-weight:600; font-size:.9rem}
+
+  .steps{counter-reset:step; display:grid; gap:14px; max-width:720px; margin:0 auto}
+  .step{display:flex; gap:14px; align-items:flex-start; background:var(--card); border:1px solid var(--border);
+    border-radius:14px; padding:16px 18px; box-shadow:var(--shadow)}
+  .step .n{counter-increment:step; min-width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#fff; font-weight:800}
+  .step .n::before{content:counter(step)}
+  .step code{background:var(--bg2); padding:2px 7px; border-radius:6px; font-size:.86rem}
+
+  .note{max-width:760px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--brand);
+    border-radius:12px;padding:16px 18px;color:var(--muted)}
+  .note strong{color:var(--text)}
+
+  footer{padding:40px 0; text-align:center; color:var(--muted); border-top:1px solid var(--border); margin-top:24px}
+  footer a{color:var(--brand2); text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><span class="mark">🩺</span> Doutor Agenda</div>
+    <nav>
+      <a href="#recursos">Recursos</a>
+      <a href="#stack">Tecnologias</a>
+      <a href="#rodar">Como rodar</a>
+      <a href="https://github.com/jhosuetortolero-lgtm/Saas-Doutor-agenda">GitHub</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <span class="badge">SaaS de gestão para clínicas</span>
+    <h1>Gerencie sua clínica com o <span class="grad">Doutor Agenda</span></h1>
+    <p class="sub">Médicos, pacientes, agendamentos, faturamento e assinaturas — tudo em um painel único, rápido e moderno.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/jhosuetortolero-lgtm/Saas-Doutor-agenda">⭐ Ver no GitHub</a>
+      <a class="btn ghost" href="#rodar">▶ Como rodar</a>
+    </div>
+  </div>
+
+  <section id="recursos">
+    <h2 class="section-title">Recursos</h2>
+    <p class="section-sub">Tudo que uma clínica precisa para o dia a dia.</p>
+    <div class="grid">
+      <div class="card"><div class="ico">🔐</div><h3>Autenticação</h3><p>Login com e-mail/senha e Google, com sessões seguras via Better Auth.</p></div>
+      <div class="card"><div class="ico">👨‍⚕️</div><h3>Médicos</h3><p>Especialidade, dias e horários de atendimento e valor da consulta.</p></div>
+      <div class="card"><div class="ico">🧑‍🤝‍🧑</div><h3>Pacientes</h3><p>Cadastro completo com nome, contato e dados essenciais.</p></div>
+      <div class="card"><div class="ico">📅</div><h3>Agendamentos</h3><p>Marcação com validação de disponibilidade do profissional.</p></div>
+      <div class="card"><div class="ico">📊</div><h3>Dashboard</h3><p>Faturamento, métricas, gráficos e rankings de médicos e especialidades.</p></div>
+      <div class="card"><div class="ico">💳</div><h3>Assinaturas</h3><p>Planos e portal do cliente integrados ao Stripe.</p></div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <h2 class="section-title">Tecnologias</h2>
+    <p class="section-sub">Construído com um stack moderno de ponta a ponta.</p>
+    <div class="stack">
+      <span class="pill">Next.js 15</span>
+      <span class="pill">React 19</span>
+      <span class="pill">TypeScript</span>
+      <span class="pill">Tailwind CSS</span>
+      <span class="pill">shadcn/ui</span>
+      <span class="pill">Drizzle ORM</span>
+      <span class="pill">PostgreSQL</span>
+      <span class="pill">Better Auth</span>
+      <span class="pill">Stripe</span>
+      <span class="pill">Recharts</span>
+      <span class="pill">Zod</span>
+    </div>
+  </section>
+
+  <section id="rodar">
+    <h2 class="section-title">Como rodar localmente</h2>
+    <p class="section-sub">Em poucos passos você tem o app rodando.</p>
+    <div class="steps">
+      <div class="step"><div class="n"></div><div>Instale as dependências: <code>npm install --legacy-peer-deps</code></div></div>
+      <div class="step"><div class="n"></div><div>Copie as variáveis: <code>cp .env.example .env</code> e preencha <code>DATABASE_URL</code></div></div>
+      <div class="step"><div class="n"></div><div>Suba um PostgreSQL (Docker) ou o banco embutido: <code>npm run db:start</code></div></div>
+      <div class="step"><div class="n"></div><div>Crie as tabelas: <code>npx drizzle-kit push</code></div></div>
+      <div class="step"><div class="n"></div><div>Inicie o app: <code>npm run dev</code> → <code>http://localhost:3000</code></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="note">
+      ⚠️ <strong>Sobre esta página:</strong> o Doutor Agenda é uma aplicação <strong>server-side</strong> (autenticação e banco de dados),
+      então <strong>não roda no GitHub Pages</strong> — esta é apenas a página de apresentação. Para hospedar o app completo,
+      use uma plataforma com backend, como a <a href="https://vercel.com" style="color:var(--brand2)">Vercel</a>.
+    </div>
+  </section>
+
+  <footer>
+    Feito com 🩺 por <a href="https://github.com/jhosuetortolero-lgtm">jhosuetortolero-lgtm</a> ·
+    <a href="https://github.com/jhosuetortolero-lgtm/Saas-Doutor-agenda">Código no GitHub</a>
+  </footer>
+</div>
+</body>
+</html>
