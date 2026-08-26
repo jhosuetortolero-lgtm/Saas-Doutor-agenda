@@ -6,6 +6,16 @@ Plataforma **SaaS de gestão para clínicas e consultórios**: cadastro de médi
 
 ---
 
+## 🖼️ Telas
+
+### Dashboard
+![Dashboard do Doutor Agenda](docs/shot-dashboard.png)
+
+### Login
+![Tela de login](docs/shot-login.png)
+
+---
+
 ## ✨ Funcionalidades
 
 - 🔐 **Autenticação** com e-mail/senha e login social com Google (via [Better Auth](https://www.better-auth.com/))
